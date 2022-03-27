@@ -1,3 +1,3 @@
-# ignore .idea all files
+# IDEs
 .idea/
-
+.vscode/
