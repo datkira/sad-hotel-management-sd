@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node models.js && node --experimental-json-modules swagger.js && nodemon --experimental-json-modules app.js"
+    "start": "node models.js && node --experimental-json-modules swagger.js && nodemon --experimental-json-modules app.js",
+    "dev":"nodemon app.js"
   },
   "keywords": [],
   "author": "",

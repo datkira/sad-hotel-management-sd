@@ -4,7 +4,6 @@ import sequelize from '../utils/database.js';
 import initModels from '../models/init-models.js'
 import userModel from '../providers/userModel.js';
 import bcrypt from 'bcrypt'
-import { Route } from 'express';
 const Router = express.Router();
 
 const models = initModels(sequelize);
@@ -21,12 +20,12 @@ Router.post('/login', async (req,res)=>{
     const user = await userModel.findUserByUsername(username);
     try {
         if(user.length==0){
-            return res.status(400).json("Username or password is not correct");
+            return res.status(400).json({message:"Username or password is not correct"});
         }else {
            
             const isValidPassword = await bcrypt.compare(password,user.password);
             if(!isValidPassword){
-                return res.status(400).json("Username or password is not correct");
+                return res.status(400).json({message:"Username or password is not correct"});
             }
             delete user.password;
             return res.json(user);
@@ -51,9 +50,9 @@ Router.post('/register',async (req,res)=>{
             role,
         }
         await userModel.addNewUser(user);
-        res.status(200).json('Success');
+        return res.status(200).json({status:'Success'});
     }
-    return res.status(400).json('Username has already exist');
+    return res.status(400).json({message:'Username has already exist'});
 })
 
 

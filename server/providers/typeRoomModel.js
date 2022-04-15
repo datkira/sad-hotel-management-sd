@@ -17,5 +17,12 @@ export default {
             }
         })
         return listTypeRooms;
+    },
+    async addTypeRoom (typeRoom){
+        await models.loaiphong.create({
+            tenloaiphong:typeRoom.tenloaiphong,
+            mota:typeRoom.mota
+        })
+    
     }
 }
