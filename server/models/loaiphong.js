@@ -7,6 +7,7 @@ export default class loaiphong extends Model {
     maloaiphong: {
       type: DataTypes.UUID,
       allowNull: false,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
     tenloaiphong: {

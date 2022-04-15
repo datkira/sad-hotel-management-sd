@@ -12,21 +12,28 @@ export default class nhanvien extends Model {
     },
     masothue: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     },
     ngaybatdau: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: Sequelize.Sequelize.fn('now')
     },
-    hokhautt: {
+    username: {
       type: DataTypes.TEXT,
       allowNull: false
     },
+    password: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    hokhautt: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
     cccd: {
       type: DataTypes.TEXT,
-      allowNull: true,
-      unique: "nhanvien_cccd_key"
+      allowNull: true
     },
     loainv: {
       type: DataTypes.TEXT,
@@ -38,13 +45,6 @@ export default class nhanvien extends Model {
     schema: 'public',
     timestamps: false,
     indexes: [
-      {
-        name: "nhanvien_cccd_key",
-        unique: true,
-        fields: [
-          { name: "cccd" },
-        ]
-      },
       {
         name: "nhanvien_pkey",
         unique: true,

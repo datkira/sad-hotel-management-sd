@@ -7,6 +7,7 @@ export default class phong extends Model {
     maphong: {
       type: DataTypes.UUID,
       allowNull: false,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
     maloaiphong: {

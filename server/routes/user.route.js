@@ -1,12 +1,61 @@
 import express from 'express'
 import sequelize from '../utils/database.js';
-const Router = express.Router();
+
 import initModels from '../models/init-models.js'
+import userModel from '../providers/userModel.js';
+import bcrypt from 'bcrypt'
+import { Route } from 'express';
+const Router = express.Router();
+
 const models = initModels(sequelize);
 Router.get('/',async (req,res)=>{
-    const hoadon = await models.hoadon.findAll();
-    res.json(hoadon);
+    const userList = await userModel.getAllUser();
+
+    res.json(userList);
 })
+
+
+Router.post('/login', async (req,res)=>{
+    let {username, password} = req.body;
+    
+    const user = await userModel.findUserByUsername(username);
+    try {
+        if(user.length==0){
+            return res.status(400).json("Username or password is not correct");
+        }else {
+           
+            const isValidPassword = await bcrypt.compare(password,user.password);
+            if(!isValidPassword){
+                return res.status(400).json("Username or password is not correct");
+            }
+            delete user.password;
+            return res.json(user);
+        }
+    } catch (error) {
+        res.status(404).json(error.message);
+    }
+    
+})
+
+Router.post('/register',async (req,res)=>{
+    let { name, username,password,role} = req.body;
+    
+    const user = await userModel.findUserByUsername(username);
+    console.log(user);
+    if(!user){
+        password = await bcrypt.hash(password,10);
+        const user = {
+            name,
+            username,
+            password,
+            role,
+        }
+        await userModel.addNewUser(user);
+        res.status(200).json('Success');
+    }
+    return res.status(400).json('Username has already exist');
+})
+
 
 
 export default Router;

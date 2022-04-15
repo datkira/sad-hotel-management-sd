@@ -11,14 +11,16 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- 	  REFERENCES user_role_type(id)
 CREATE TABLE NhanVien(
     MaNV uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-    MaSoThue TEXT NOT NULL,
+    MaSoThue TEXT ,
     NgayBatDau TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    HoKhauTT TEXT NOT NULL,
-    CCCD TEXT UNIQUE,
+    username TEXT NOT NULL,
+    password TEXT NOT NULL,
+    HoKhauTT TEXT,
+    CCCD TEXT ,
     LoaiNV TEXT );
 	
 CREATE TABLE LoaiPhong(
-    MaLoaiPhong uuid PRIMARY KEY,
+    MaLoaiPhong uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
     TenLoaiPhong TEXT,
     MoTa TEXT
 );
@@ -40,7 +42,7 @@ CREATE TABLE KhachHang (
 );
 
 CREATE TABLE Phong(
-    MaPhong uuid PRIMARY KEY,
+    MaPhong uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
     MaLoaiPhong uuid NOT NULL,
     Ten TEXT,
     TinhTrang TEXT,
@@ -164,3 +166,5 @@ CREATE TABLE BaoCaoMatDoSuDungPhong (
 -- INSERT INTO user_role_type(name, code) VALUES ('admin', 'ABC');
 -- DROP TABLE user_roles;
 -- DROP TABLE user_tables;  
+--INSERT INTO phong(maloaiphong,ten,tinhtrang,gia) VALUES ('d46488af-9897-4cfe-aaa4-af58bdc66a6c','Phong hai giuong','available','300');
+-- INSERT INTO loaiphong(tenloaiphong,mota) VALUES ('Phong thuong','Phong co ban cong huong ra bien'); 
