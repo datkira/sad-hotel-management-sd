@@ -102,7 +102,7 @@ export default function Sidebar() {
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
-                  Dashboard
+                  Tổng quan
                 </Link>
               </li>
 
@@ -124,7 +124,7 @@ export default function Sidebar() {
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
-                  Settings
+                  Quản lý chung
                 </Link>
               </li>
 
@@ -140,13 +140,35 @@ export default function Sidebar() {
                 >
                   <i
                     className={
-                      "fas fa-table mr-2 text-sm " +
+                        "fas fa-users mr-2 text-sm " +
                       (window.location.href.indexOf("/tables") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
-                  Tables
+                  Quản lý nhân viên
+                </Link>
+              </li>
+
+              <li className="items-center">
+                <Link
+                    className={
+                        "text-xs uppercase py-3 font-bold block " +
+                        (window.location.href.indexOf("/tables") !== -1
+                            ? "text-lightBlue-500 hover:text-lightBlue-600"
+                            : "text-blueGray-700 hover:text-blueGray-500")
+                    }
+                    to="/tables"
+                >
+                  <i
+                      className={
+                          "fas fa-person-booth mr-2 text-sm " +
+                          (window.location.href.indexOf("/tables") !== -1
+                              ? "opacity-75"
+                              : "text-blueGray-300")
+                      }
+                  ></i>{" "}
+                  Quản lý phòng
                 </Link>
               </li>
 
@@ -169,6 +191,27 @@ export default function Sidebar() {
                     }
                   ></i>{" "}
                   Maps
+                </Link>
+              </li>
+              <li className="items-center">
+                <Link
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (window.location.href.indexOf("/maps") !== -1
+                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                      : "text-blueGray-700 hover:text-blueGray-500")
+                  }
+                  to="/maps"
+                >
+                  <i
+                    className={
+                      "fas fa-map-marked mr-2 text-sm " +
+                      (window.location.href.indexOf("/maps") !== -1
+                        ? "opacity-75"
+                        : "text-blueGray-300")
+                    }
+                  ></i>{" "}
+                  Hướng dẫn sử dụng
                 </Link>
               </li>
             </ul>
