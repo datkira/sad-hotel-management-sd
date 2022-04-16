@@ -11,8 +11,8 @@ export default class khachhang extends Model {
       primaryKey: true
     },
     maloaikh: {
-      type: DataTypes.UUID,
-      allowNull: true,
+      type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: 'loaikhachhang',
         key: 'maloaikh'

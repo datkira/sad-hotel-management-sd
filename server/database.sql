@@ -1,5 +1,7 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
---CREATE DATABASE sad;
+--CREATE DATABASE sad; chạy cái này trước sau đó vào \c sad; xong rồi mới copy vào
+-- Thay đổi mật khẩu trong .env 
+-- 
 
 
 --c\ meuweek2_database
@@ -25,14 +27,14 @@ CREATE TABLE LoaiPhong(
     MoTa TEXT
 );
 CREATE TABLE LoaiKhachHang(
-    MaLoaiKH uuid PRIMARY KEY,
+    MaLoaiKH INTEGER PRIMARY KEY,
     TenLoaiKH TEXT
 );
 
 
 CREATE TABLE KhachHang (
     MaKH uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-    MaLoaiKH uuid,
+    MaLoaiKH INTEGER NOT NULL,
     TenKH TEXT,
     SoCCCD TEXT,
     Email TEXT UNIQUE,
@@ -168,3 +170,7 @@ CREATE TABLE BaoCaoMatDoSuDungPhong (
 -- DROP TABLE user_tables;  
 --INSERT INTO phong(maloaiphong,ten,tinhtrang,gia) VALUES ('d46488af-9897-4cfe-aaa4-af58bdc66a6c','Phong hai giuong','available','300');
 -- INSERT INTO loaiphong(tenloaiphong,mota) VALUES ('Phong thuong','Phong co ban cong huong ra bien'); 
+-- insert into loaiphong(tenloaiphong,mota) VALUES ('Phong thuong gia 1','Bao an bao uong');
+-- INSERT INTO phong(maloaiphong,ten,tinhtrang,gia) Values ('66208dbc-b983-41ef-b8cc-2f18ea2d85da','Phong don','Available','300$');  
+
+--insert into hoadon (makh,nhanvienxuathd,tongtien,trangthai) values('4ecbe0f6-e33d-43b4-b349-6cf564b8c5af','f423de34-9edd-441e-b3aa-f4a3daebe5df','300$','Hoan thanh');

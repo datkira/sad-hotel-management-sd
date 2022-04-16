@@ -12,7 +12,7 @@ Router.get('/',async (req,res)=>{
     
 
 })
-Router.post('/',async (req,res)=>{
+Router.post('/addNew',async (req,res)=>{
     const {tenloaiphong,mota} = req.body;
     try {
         let typeRoom ={
