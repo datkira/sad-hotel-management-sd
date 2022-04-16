@@ -5,7 +5,7 @@ export default class loaikhachhang extends Model {
   static init(sequelize, DataTypes) {
   return super.init({
     maloaikh: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
