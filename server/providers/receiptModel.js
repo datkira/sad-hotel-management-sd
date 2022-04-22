@@ -13,12 +13,17 @@ export default{
         return receipts;
     },
     async findReceiptById(id){
-        const receiptList = await models.hoadon.findAll({
-            where:{
-                mahd:id
-            }
-        })
-        return receiptList[0];
+        try {
+            const receiptList = await models.hoadon.findAll({
+                where:{
+                    mahd:id
+                }
+            })
+            return receiptList[0];
+        } catch (error) {
+            return null;
+        }
+        
     },
     async addNewReceipt (receipt){
         await models.hoadon.create({

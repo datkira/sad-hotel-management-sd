@@ -18,11 +18,17 @@ export default{
         })
     },
     async findRentingBillById(id){
-        const rentingBill = await models.phieuthuephong.findAll({
-            where:{
-                maphieu:id
-            }
-        })
-        return rentingBill;
+        try {
+            const rentingBill = await models.phieuthuephong.findAll({
+                where:{
+                    maphieu:id
+                }
+            })
+            return rentingBill;
+        } catch (error) {
+            console.log(error.message);
+            return null;
+        }   
+        
     }
 }

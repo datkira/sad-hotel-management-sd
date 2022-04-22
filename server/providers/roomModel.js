@@ -20,9 +20,16 @@ export default {
         return rooms;
     },
     async getRoomById(id){
-        const room = await models.phong.findAll({where:{
-            maphong:id
-        }})
-        return room[0];
+        try {
+            const room = await models.phong.findAll({where:{
+                maphong:id
+            }})
+            return room[0];
+        } catch (error) {
+            console.log(error.message);
+            return null;
+        }
+        
+        
     }
 }
