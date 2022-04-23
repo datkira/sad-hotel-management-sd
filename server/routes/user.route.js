@@ -10,7 +10,13 @@ const models = initModels(sequelize);
 Router.get('/',async (req,res)=>{
     const userList = await userModel.getAllUser();
 
-    res.json(userList);
+    // ignore password
+    const userListJson = userList.map(user => {
+        const { password, ...userJson } = user.toJSON();
+        return userJson;
+    });
+
+    res.json(userListJson);
 })
 
 
