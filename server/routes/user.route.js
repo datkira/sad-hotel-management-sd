@@ -22,7 +22,7 @@ Router.get('/',async (req,res)=>{
 
 Router.post('/login', async (req,res)=>{
     let {username, password} = req.body;
-    
+    console.log(req.body)
     const user = await userModel.findUserByUsername(username);
     try {
         if(user.length==0){

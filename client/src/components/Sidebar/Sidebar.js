@@ -102,7 +102,7 @@ export default function Sidebar() {
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
-                  General Management
+                  Room Management
                 </Link>
               </li>
 
