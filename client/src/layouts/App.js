@@ -15,33 +15,39 @@ import Maps from "views/admin/Maps.js";
 import Settings from "views/admin/Settings.js";
 import Employee from "views/admin/Employee.js";
 import {
-    useQuery,
-    useMutation,
-    useQueryClient,
-    QueryClient,
-    QueryClientProvider,
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
 } from 'react-query';
+import Profile from "../views/Profile";
+import Customer from "../views/admin/Customer";
+import Guides from "../components/Guides/Guides";
 
 const queryClient = new QueryClient()
 
 export default function App() {
-    return (
-        <QueryClientProvider client={queryClient}>
-            <Sidebar/>
-            <div className="relative md:ml-64 bg-blueGray-100">
-                <AdminNavbar/>
-                <HeaderStats/>
-                <div className="px-4 md:px-10 mx-auto w-full -m-24">
-                    <Switch>
-                        <Route path="/" exact component={Dashboard}/>
-                        <Route path="/maps" exact component={Maps}/>
-                        <Route path="/settings" exact component={Settings}/>
-                        <Route path="/tables" exact component={Employee}/>
-                        <Redirect from="/" to="/dashboard"/>
-                    </Switch>
-                    <FooterAdmin/>
-                </div>
-            </div>
-        </QueryClientProvider>
-    );
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Sidebar/>
+      <div className="relative md:ml-64 bg-blueGray-100">
+        <AdminNavbar/>
+        <HeaderStats/>
+        <div className="px-4 md:px-10 mx-auto w-full -m-24">
+          <Switch>
+            <Route path="/" exact component={Dashboard}/>
+            <Route path="/maps" exact component={Maps}/>
+            <Route path="/settings" exact component={Settings}/>
+            <Route path="/tables" exact component={Employee}/>
+            <Route path="/customers" exact component={Customer}/>
+            <Route path="/profiles" exact component={Profile}/>
+            <Route path="/guides" exact component={Guides}/>
+            <Redirect from="/" to="/dashboard"/>
+          </Switch>
+          <FooterAdmin/>
+        </div>
+      </div>
+    </QueryClientProvider>
+  );
 }

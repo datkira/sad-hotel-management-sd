@@ -29,7 +29,5 @@ export default {
             console.log(error.message);
             return null;
         }
-        
-        
     }
 }

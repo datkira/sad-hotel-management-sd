@@ -2,11 +2,20 @@ import React from "react";
 
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
+import {useQuery} from "react-query";
+import axios from "axios";
+import {getToken} from "../services/LocalStorage";
 
 export default function Profile() {
+  const token = getToken();
+  const {isLoading, error, data, isFetching} = useQuery('customers', () =>
+    axios.get('http://localhost:5000/api/users/' + token.username).then(res => res.data),
+  )
+
+  console.log('data', data)
+  if(isLoading) return <div>Loading...</div>
   return (
     <>
-      <Navbar transparent />
       <main className="profile-page">
         <section className="relative block h-500-px">
           <div
@@ -23,7 +32,7 @@ export default function Profile() {
           </div>
           <div
             className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
-            style={{ transform: "translateZ(0)" }}
+            style={{transform: "translateZ(0)"}}
           >
             <svg
               className="absolute bottom-0 overflow-hidden"
@@ -43,7 +52,8 @@ export default function Profile() {
         </section>
         <section className="relative py-16 bg-blueGray-200">
           <div className="container mx-auto px-4">
-            <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
+            <div
+              className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
               <div className="px-6">
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
@@ -61,7 +71,7 @@ export default function Profile() {
                         className="bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                         type="button"
                       >
-                        Connect
+                        EDIT PROFILE
                       </button>
                     </div>
                   </div>
@@ -69,18 +79,10 @@ export default function Profile() {
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          22
+                          25
                         </span>
                         <span className="text-sm text-blueGray-400">
-                          Friends
-                        </span>
-                      </div>
-                      <div className="mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                          10
-                        </span>
-                        <span className="text-sm text-blueGray-400">
-                          Photos
+                          Orders
                         </span>
                       </div>
                       <div className="lg:mr-4 p-3 text-center">
@@ -88,7 +90,7 @@ export default function Profile() {
                           89
                         </span>
                         <span className="text-sm text-blueGray-400">
-                          Comments
+                          Working Days
                         </span>
                       </div>
                     </div>
@@ -96,7 +98,7 @@ export default function Profile() {
                 </div>
                 <div className="text-center mt-12">
                   <h3 className="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                    Jenna Stones
+                    {data.username}
                   </h3>
                   <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
                     <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
@@ -104,7 +106,7 @@ export default function Profile() {
                   </div>
                   <div className="mb-2 text-blueGray-600 mt-10">
                     <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-                    Solution Manager - Creative Tim Officer
+                    Accountant
                   </div>
                   <div className="mb-2 text-blueGray-600">
                     <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
@@ -136,7 +138,6 @@ export default function Profile() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 }

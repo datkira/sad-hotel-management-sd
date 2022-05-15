@@ -1,7 +1,23 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
+import {toast} from "react-toastify";
+import Client from "../../services/Client";
+import {Formik} from 'formik'
 
-export default function Register () {
+export default function Register() {
+  const client = new Client()
+
+  const sendForm = async (name, username, password) => {
+    const result = await client.register(name, username, password)
+
+    console.log('result', result)
+    if (result.status === 200) {
+      window.location.href = '/login'
+      toast.success('Register successfully')
+    } else {
+      toast.error('Register fail')
+    }
+  }
   return (
     <div className='flex justify-center items-center w-full h-screen'>
       <div className='container mx-auto px-4 h-full'>
@@ -13,85 +29,112 @@ export default function Register () {
                 <div className='text-blueGray-400 text-center mb-3 font-bold'>
                   <small>Sign up with credentials</small>
                 </div>
-                <form>
-                  <div className='relative w-full mb-3'>
-                    <label
-                      className='block uppercase text-blueGray-600 text-xs font-bold mb-2'
-                      htmlFor='grid-password'
-                    >
-                      Name
-                    </label>
-                    <input
-                      type='email'
-                      className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
-                      placeholder='Name'
-                    />
-                  </div>
-
-                  <div className='relative w-full mb-3'>
-                    <label
-                      className='block uppercase text-blueGray-600 text-xs font-bold mb-2'
-                      htmlFor='grid-password'
-                    >
-                      Email
-                    </label>
-                    <input
-                      type='email'
-                      className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
-                      placeholder='Email'
-                    />
-                  </div>
-
-                  <div className='relative w-full mb-3'>
-                    <label
-                      className='block uppercase text-blueGray-600 text-xs font-bold mb-2'
-                      htmlFor='grid-password'
-                    >
-                      Password
-                    </label>
-                    <input
-                      type='password'
-                      className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
-                      placeholder='Password'
-                    />
-                  </div>
-
-                  <div>
-                    <label className='inline-flex items-center cursor-pointer'>
-                      <input
-                        id='customCheckLogin'
-                        type='checkbox'
-                        className='form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150'
-                      />
-                      <span className='ml-2 text-sm font-semibold text-blueGray-600'>
-                        I agree with the{' '}
-                        <a
-                          href='#pablo'
-                          className='text-lightBlue-500'
-                          onClick={(e) => e.preventDefault()}
+                <Formik
+                  initialValues={{username: '', name: '', password: ''}}
+                  onSubmit={async (values, {setSubmitting}) => {
+                    await sendForm(values.name, values.username, values.password)
+                    setSubmitting(false)
+                  }}
+                >
+                  {({
+                      values,
+                      errors,
+                      touched,
+                      handleChange,
+                      handleBlur,
+                      handleSubmit,
+                      isSubmitting,
+                      /* and other goodies */
+                    }) => (
+                    <form onSubmit={handleSubmit}>
+                      <div className='relative w-full mb-3'>
+                        <label
+                          className='block uppercase text-blueGray-600 text-xs font-bold mb-2'
+                          htmlFor='grid-password'
                         >
+                          Name
+                        </label>
+                        <input
+                          className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
+                          placeholder='Name'
+                          name='name'
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.name}
+                        />
+                      </div>
+
+                      <div className='relative w-full mb-3'>
+                        <label
+                          className='block uppercase text-blueGray-600 text-xs font-bold mb-2'
+                          htmlFor='grid-password'
+                        >
+                          Username
+                        </label>
+                        <input
+                          type='name'
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.username}
+                          name='username'
+                          className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
+                          placeholder='Username'
+                        />
+                      </div>
+
+                      <div className='relative w-full mb-3'>
+                        <label
+                          className='block uppercase text-blueGray-600 text-xs font-bold mb-2'
+                          htmlFor='grid-password'
+                        >
+                          Password
+                        </label>
+                        <input
+                          type='password'
+                          name='password'
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.password}
+                          className='border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150'
+                          placeholder='Password'
+                        />
+                      </div>
+
+                      <div>
+                        <label className='inline-flex items-center cursor-pointer'>
+                          <input
+                            id='customCheckLogin'
+                            type='checkbox'
+                            className='form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150'
+                          />
+                          <span className='ml-2 text-sm font-semibold text-blueGray-600'>
+                        I agree with the{' '}
+                            <a
+                              href='#pablo'
+                              className='text-lightBlue-500'
+                              onClick={(e) => e.preventDefault()}
+                            >
                           Privacy Policy
                         </a>
                       </span>
-                    </label>
-                  </div>
+                        </label>
+                      </div>
 
-                  <div className='text-center mt-6'>
-                    <button
-                      className='bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150'
-                      type='button'
-                    >
-                      Create Account
-                    </button>
-                  </div>
-                </form>
+                      <div className='text-center mt-6'>
+                        <button
+                          className='bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150'
+                        >
+                          Create Account
+                        </button>
+                      </div>
+                    </form>)}</Formik>
               </div>
-            </div>
-            <div className="flex flex-wrap mt-6 relative">
-              <div className="w-full text-right">
-                <Link to="/login" className="text-blueGray-500">
-                  <small>Already have the account?</small>
-                </Link>
+              <div className="flex flex-wrap mt-6 relative">
+                <div className="w-full text-right">
+                  <Link to="/login" className="text-blueGray-500">
+                    <small>Already have the account?</small>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

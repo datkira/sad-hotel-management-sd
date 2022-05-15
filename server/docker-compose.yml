@@ -16,7 +16,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./.docker/database/init.sql:/var/lib/postgresql/data/init.sql
+      - ./.docker/database/init.sql:/var/lib/docker/volumes/sad-hotel/_data/init.sql
 networks:
   sad_network:
     external:

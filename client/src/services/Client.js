@@ -11,14 +11,11 @@ class Client extends BaseRoute {
     })
   }
 
-  async register (email, password, username, type) {
-    return await this.post('register', {
-      email,
-      password,
+  async register (name, username, password) {
+    return await this.post('users/register', {
+      name,
       username,
-      type,
-      avatar: '',
-      description: '',
+      password,
     })
   }
 

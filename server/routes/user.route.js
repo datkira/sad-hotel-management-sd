@@ -4,6 +4,7 @@ import sequelize from '../utils/database.js';
 import initModels from '../models/init-models.js'
 import userModel from '../providers/userModel.js';
 import bcrypt from 'bcrypt'
+import roomModel from "../providers/roomModel.js";
 const Router = express.Router();
 
 const models = initModels(sequelize);
@@ -19,6 +20,11 @@ Router.get('/',async (req,res)=>{
     res.json(userListJson);
 })
 
+Router.get('/:id',async (req,res)=>{
+    const id = req.params.id;
+    const user = await userModel.findUserByUsername(id);
+    res.status(200).json(user);
+})
 
 Router.post('/login', async (req,res)=>{
     let {username, password} = req.body;

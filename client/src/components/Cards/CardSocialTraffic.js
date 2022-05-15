@@ -1,7 +1,5 @@
 import React from "react";
 
-// components
-
 export default function CardSocialTraffic() {
   return (
     <>
@@ -10,7 +8,7 @@ export default function CardSocialTraffic() {
           <div className="flex flex-wrap items-center">
             <div className="relative w-full px-4 max-w-full flex-grow flex-1">
               <h3 className="font-semibold text-base text-blueGray-700">
-                Social traffic
+                Social traffic of hotel (Comming soon)
               </h3>
             </div>
             <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
@@ -122,6 +120,7 @@ export default function CardSocialTraffic() {
                   </div>
                 </td>
               </tr>
+
               <tr>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
                   twitter
